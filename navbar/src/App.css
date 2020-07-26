@@ -1,0 +1,36 @@
+.App {
+  text-align: center;
+  color: rgb(61, 116, 219);
+  margin:270px auto;
+  width: 700px;
+  height:80px;
+  background: #2c3e50;
+}
+.App ul li{
+  display: inline;
+  line-height: 80px;
+  padding:  30px;
+  color: white;
+  margin: none;
+  text-transform: uppercase;
+}
+.main-nav{
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  text-decoration: none;
+}
+.selected{
+  background: rgb(172, 11, 110);
+  padding: 27px;
+  margin: 0;
+}
+
+b.in-text{
+  color:white;
+  padding: 9px;
+  background: rgb(83, 181, 238);
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-size: 25px;
+}
