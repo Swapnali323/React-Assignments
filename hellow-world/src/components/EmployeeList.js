@@ -8,19 +8,19 @@ const EmployeeList=()=> {
         {name:"Vaidehee" , job:"Analyst"}
     ]
 
-    //     const EmployeesToShow = (employee,index) => {
-    //         return(
-    //             <tr key={index}>
-    //                 <td>{employee.name}</td>
-    //                 <td>{employee.job}</td>
-    //             </tr>
-    //         )
-    // }
-            const employeeList =   employees.map((employee,index)=>
-            <tr>
-                <td>{employee.name}</td> 
-                <td>{employee.job}</td>
-           </tr>)
+        const EmployeesToShow = (employee,index) => {
+            return(
+                <tr key={index}>
+                    <td>{employee.name}</td>
+                    <td>{employee.job}</td>
+                </tr>
+            )
+    }
+        //     const employeeList =   (employee)=>
+        //     <tr>
+        //         <td>{employee.name}</td> 
+        //         <td>{employee.job}</td>
+        //    </tr>
     return (
         <div>
             <h1>Employee List</h1>
@@ -32,8 +32,8 @@ const EmployeeList=()=> {
                 </tr>
             </thead>
             <tbody>
-                 {/* {employees.map(employ)}  */}
-            {employeeList}
+                 {employees.map(EmployeesToShow)} 
+            {/* {employees.map(employeeList)} */}
             </tbody>
             </table>
         </div>

@@ -23,8 +23,8 @@ function App() {
   return (
     <div className="App">
       <p>Hello Word!</p>
-      <LoginForm />
-      {/* <Form /> */}
+      {/* <LoginForm /> */}
+      <Form />
          {/* <Child changeTheWorldEvent={this.changeTheWorld.bind(this, 'new world')} 
          keepTheWorldSameEvent={this.changeTheWorld.bind(this, 'same world')}
          title={this.state.title}/> */}

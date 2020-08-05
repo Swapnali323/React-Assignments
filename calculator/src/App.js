@@ -1,84 +1,142 @@
-import React, { Component } from 'react';
-import './App.css';
-import Result from './components/Result';
-import Keypad from './components/Keypad';
+import React, { Component } from "react";
+import "./App.css";
+import Button from "./components/Button";
+import Input from "./components/Input";
+import ClearButton from "./components/ClearButton";
+import Reset from "./components/Reset";
 
 class App extends Component {
-  constructor(){
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-        result: ""
+      input: "",
+      previousNumber: "",
+      currentNumber: "",
+      operator: ""
+    };
+  }
+
+  addToInput = val => {
+    this.setState({ input: this.state.input + val });
+  };
+
+  addDecimal = val => {
+    // only add decimal if there is no current decimal point present in the input area
+    if (this.state.input.indexOf(".") === -1) {
+      this.setState({ input: this.state.input + val });
     }
-}
+  };
 
-onClick = button => {
+//   addZeroToInput = val => {
+//     // if this.state.input is not empty then add zero
+//     if (this.state.input !== "") {
+//       this.setState({ input: this.state.input + val });
+//     }
+//   };
 
-    if(button === "="){
-        this.calculate()
+  clearInput = () => {
+    this.setState({  
+    input: this.state.input.slice(0, -1)});
+  };
+
+  add = () => {
+    this.state.previousNumber = this.state.input;
+    this.setState({ input: "" });
+    this.state.operator = "plus";
+  };
+
+  subtract = () => {
+    this.state.previousNumber = this.state.input;
+    this.setState({ input: "" });
+    this.state.operator = "subtract";
+  };
+  
+  multiply = () => {
+    this.state.previousNumber = this.state.input;
+    this.setState({ input: "" });
+    this.state.operator = "multiply";
+  };
+
+  divide = () => {
+    this.state.previousNumber = this.state.input;
+    this.setState({ input: "" });
+    this.state.operator = "divide";
+  };
+
+  clearAll = () => {
+    this.setState({ input: "" });
+  };
+
+  evaluate = () => {
+    this.state.currentNumber = this.state.input;
+
+    if (this.state.operator == "plus") {
+      this.setState({
+        input:(eval (parseFloat(this.state.previousNumber)) ||
+          parseFloat(this.state.currentNumber))+ parseFloat(this.state.currentNumber)
+      });
+    } else if (this.state.operator == "subtract") {
+      this.setState({
+        input:
+        parseFloat(this.state.previousNumber) -
+        parseFloat(this.state.currentNumber)
+      });
+    } else if (this.state.operator == "multiply") {
+      this.setState({
+        input:
+        parseFloat(this.state.previousNumber) *
+        parseFloat(this.state.currentNumber)
+      });
+    } else if (this.state.operator == "divide") {
+      this.setState({
+        input:
+        parseFloat(this.state.previousNumber) /
+        parseFloat(this.state.currentNumber)
+      });
     }
+  };
 
-    else if(button === "C"){
-        this.reset()
-    }
-    else if(button === "CE"){
-        this.backspace()
-    }
-
-    else {
-        this.setState({
-            result: this.state.result + button
-        })
-    }
-};
-
-
-calculate = () => {
-    var checkResult = ''
-    if(this.state.result.includes('--')){
-        checkResult = this.state.result.replace('--','+')
-    }
-
-    else {
-        checkResult = this.state.result
-    }
-
-    try {
-        this.setState({
-            // eslint-disable-next-line
-            result: (eval(checkResult) || "" ) + ""
-        })
-    } catch (e) {
-        this.setState({
-            result: "error"
-        })
-
-    }
-};
-
-reset = () => {
-    this.setState({
-        result: ""
-    })
-};
-
-backspace = () => {
-    this.setState({
-        result: this.state.result.slice(0, -1)
-    })
-};
-
-render() {
+  render() {
     return (
-        <div>
-            <div className="calculator-body">
-                <h1>Simple Calculator</h1>
-                <Result result={this.state.result}/>
-                <Keypad onClick={this.onClick}/>
-            </div>
+      <div className="App">
+        <div className="calc-wrapper">
+          <div className="row">
+            <Input>{this.state.input}</Input>
+          </div>
+          <div className="row">
+            <ClearButton handleClear={this.clearInput}>Clear</ClearButton>
+            <Reset handleReset={this.clearAll}>Reset</Reset>
+          </div>
+          <div className="row">
+            <Button handleClick={this.addToInput}>7</Button>
+            <Button handleClick={this.addToInput}>8</Button>
+            <Button handleClick={this.addToInput}>9</Button>
+            <Button handleClick={this.divide}>/</Button>
+          </div>
+          <div className="row">
+            <Button handleClick={this.addToInput}>4</Button>
+            <Button handleClick={this.addToInput}>5</Button>
+            <Button handleClick={this.addToInput}>6</Button>
+            <Button handleClick={this.multiply}>*</Button>
+          </div>
+          <div className="row">
+            <Button handleClick={this.addToInput}>1</Button>
+            <Button handleClick={this.addToInput}>2</Button>
+            <Button handleClick={this.addToInput}>3</Button>
+            <Button handleClick={this.add}>+</Button>
+          </div>
+          <div className="row">
+            <Button handleClick={this.addDecimal}>.</Button>
+            <Button handleClick={this.addToInput}>0</Button>
+            <Button handleClick={this.evaluate}>=</Button>
+            <Button handleClick={this.subtract}>-</Button>
+          </div>
+          
         </div>
+      </div>
     );
-}
+  }
 }
 
 export default App;
